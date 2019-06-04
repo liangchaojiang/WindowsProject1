@@ -39,6 +39,7 @@ LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 BOOL OpenSerial();
 DWORD WINAPI ThreadRead(LPVOID lpParameter);
+DWORD WINAPI WriteChar(WCHAR* m_szWriteBuffer, DWORD m_nToSend);
 bool setuptimeout(DWORD ReadInterval, DWORD ReadTotalMultiplier, DWORD ReadTotalconstant, DWORD WriteTotalMultiplier, DWORD WriteTotalconstant);
 
 
@@ -156,14 +157,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     switch (message)
     {
 	RECT rect;
-	HINSTANCE hRich;;
-	hRich = LoadLibrary(TEXT("RICHED20.dll"));
 	hwnd= hWnd;
 	lparam = lParam;
 	wparm = wParam;
 	case WM_CREATE:
 	{
-		hWinRich = CreateWindowEx(WS_EX_CLIENTEDGE,TEXT("EDIT"), TEXT("扩展3D样式"),
+		hWinRich = CreateWindowEx(WS_EX_CLIENTEDGE,TEXT("EDIT"), TEXT(""),
 			 WS_CHILD | WS_VISIBLE | WS_VSCROLL | ES_AUTOVSCROLL | ES_MULTILINE,
 			0, 0, 0, 0, hWnd, 0, ((LPCREATESTRUCT)lParam)->hInstance, NULL);
 		button = CreateWindow(
@@ -207,7 +206,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			break;
 		}
 			int wmId = LOWORD(wParam);
-
+			WCHAR * temp = (WCHAR*)("this is a temp");
             // 分析菜单选择:
             switch (wmId)
             {
@@ -217,6 +216,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             case IDM_EXIT:
                 DestroyWindow(hWnd);
                 break;
+			case ID_32784: 
+				WriteChar(temp, 20);
+				break;
             default:
                 return DefWindowProc(hWnd, message, wParam, lParam);
             }
@@ -356,6 +358,58 @@ DWORD WINAPI ThreadRead( LPVOID lpParameter) {
     }
 
 
+
+}
+
+DWORD WINAPI WriteChar(WCHAR* m_szWriteBuffer, DWORD m_nToSend) {
+	OVERLAPPED osWrite = { 0 };
+	DWORD dwWritten;
+	DWORD dwRes;
+	BOOL fRes;
+	
+
+	// Create this write operation's OVERLAPPED structure's hEvent.
+	osWrite.hEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
+	if (osWrite.hEvent == NULL)
+		// error creating overlapped event handle
+		return FALSE;
+	char * buff;
+	buff = (char*)"AB";
+	// Issue write.
+	if (!WriteFile(hCom,buff , 5, &dwWritten, &osWrite)) {
+		if (GetLastError() != ERROR_IO_PENDING) {
+			// WriteFile failed, but isn't delayed. Report error and abort.
+			fRes = FALSE;
+		}
+		else
+			// Write is pending.
+			dwRes = WaitForSingleObject(osWrite.hEvent, INFINITE);
+		switch (dwRes)
+		{
+			// OVERLAPPED structure's event has been signaled. 
+		case WAIT_OBJECT_0:
+			if (!GetOverlappedResult(hCom, &osWrite, &dwWritten, FALSE))
+				fRes = FALSE;
+			else
+				// Write operation completed successfully.
+				fRes = TRUE;
+			break;
+
+		default:
+			// An error has occurred in WaitForSingleObject.
+			// This usually indicates a problem with the
+			// OVERLAPPED structure's event handle.
+			fRes = FALSE;
+			break;
+		}
+	}
+
+	else
+		// WriteFile completed immediately.
+		fRes = TRUE;
+
+	//	CloseHandle(osWrite.hEvent);   // close the port 
+	return fRes;
 
 }
 
