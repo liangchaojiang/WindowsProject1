@@ -28,6 +28,7 @@ WCHAR szWindowClass[MAX_LOADSTRING];            // 主窗口类名
 HDC hdcglobal;
 RECT rect1;
 
+static WCHAR messageOut[1024000]=L"init";
 
 OVERLAPPED Rol = { 0 };
 OVERLAPPED Wol = { 0 };
@@ -183,7 +184,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 	}
 	case WM_SIZE:
-		MoveWindow(hWinRich,0,0,300,200,TRUE);
+		RECT rect2;
+		GetWindowRect(hwnd,&rect2);
+		MoveWindow(hWinRich,0,0,1000,500,TRUE);
 
     case WM_COMMAND:
         {
@@ -219,6 +222,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 break;
 			case ID_32784: 
 				WriteChar(temp, 20);
+				break;
+			case ID_32776:
+				SendMessage(hWinRich, EN_SETFOCUS, -2, -1);
+				SendMessage(hWinRich, EM_REPLACESEL, true, (LPARAM)messageOut);
 				break;
             default:
                 return DefWindowProc(hWnd, message, wParam, lParam);
@@ -318,6 +325,9 @@ DWORD WINAPI ThreadRead( LPVOID lpParameter) {
 	GetClientRect(hwnd,&rect1);
 	hdcglobal = GetWindowDC(hwnd);
 
+	static unsigned long nCurrectPos = 0;//指针当前位置
+
+
 	for (;;) {
 
 		DWORD dwWantRead = 100;
@@ -346,9 +356,21 @@ DWORD WINAPI ThreadRead( LPVOID lpParameter) {
 
 			MultiByteToWideChar(CP_ACP, 0, pReadBuf, strlen(pReadBuf) + 1, wszClassName,
 				sizeof(wszClassName) / sizeof(wszClassName[0]));
+			if (wszClassName[0]!=0) {
+				if (nCurrectPos < 1024000) {
+				for(int i =0;i<100;i++)
+					if (wszClassName[i] != 0) {
+						messageOut[nCurrectPos] = wszClassName[i];
+						nCurrectPos += 1;
+					}
+					else
+					{
+						break;
+					}
+				}
+			}
+			
 
-			SendMessage(hWinRich, EN_SETFOCUS, -2, -1);
-			SendMessage(hWinRich, EM_REPLACESEL, true, (LPARAM)wszClassName);
 		}
 		else {
 			
@@ -442,7 +464,7 @@ DWORD WINAPI WriteChar(WCHAR* m_szWriteBuffer, DWORD m_nToSend) {
 			}
 			else
 			{
-				//MessageBox(hwnd, TEXT("数据发送成功"), TEXT("打开串口"), 0);
+				MessageBox(hwnd, TEXT("数据发送成功"), TEXT("打开串口"), 0);
 				//发送数据成功
 				//printf("send success dwWrite = %d \r\n", dwWrite);
 				//这里加入发送成功的处理代码
