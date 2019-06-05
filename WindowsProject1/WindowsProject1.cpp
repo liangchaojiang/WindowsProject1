@@ -7,6 +7,8 @@
 
 
 #define MAX_LOADSTRING 100
+#define MAX_SERIAL_BUFFER 4096
+
 
 #pragma comment (lib,"Bthprops.lib")
 HANDLE hCom;
@@ -14,7 +16,6 @@ HWND hwnd;
 LPARAM lparam;
 WPARAM wparm;
 COMSTAT Comstat;
-OVERLAPPED OverLapped;
 
 static HWND  button, serialShow, hWinRich;
 
@@ -26,8 +27,10 @@ WCHAR szWindowClass[MAX_LOADSTRING];            // 主窗口类名
 
 HDC hdcglobal;
 RECT rect1;
-WCHAR wszClassName[2048];
 
+
+OVERLAPPED Rol = { 0 };
+OVERLAPPED Wol = { 0 };
 
 
 
@@ -41,8 +44,6 @@ BOOL OpenSerial();
 DWORD WINAPI ThreadRead(LPVOID lpParameter);
 DWORD WINAPI WriteChar(WCHAR* m_szWriteBuffer, DWORD m_nToSend);
 bool setuptimeout(DWORD ReadInterval, DWORD ReadTotalMultiplier, DWORD ReadTotalconstant, DWORD WriteTotalMultiplier, DWORD WriteTotalconstant);
-
-
 
 
 
@@ -167,7 +168,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			0, 0, 0, 0, hWnd, 0, ((LPCREATESTRUCT)lParam)->hInstance, NULL);
 		button = CreateWindow(
 			TEXT("BUTTON"),
-			TEXT("BUTTON"),
+			TEXT("打开串口"),
 			WS_TABSTOP|WS_VISIBLE|WS_CHILD|BS_DEFPUSHBUTTON,
 			1000,
 			0,
@@ -267,31 +268,40 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 
 BOOL OpenSerial() {
 
-	DCB dcb;
-	COMMTIMEOUTS tim_out;
+		DCB dcb;
 		hCom = CreateFile(
 			TEXT("COM3"),
 			GENERIC_READ | GENERIC_WRITE,
 			0,
 			NULL,
 			OPEN_EXISTING,
-			FILE_FLAG_OVERLAPPED,
+			FILE_FLAG_OVERLAPPED|FILE_ATTRIBUTE_NORMAL,
 			0
 		);
 		if (hCom == (HANDLE)-1) {
 			return FALSE;
 		}
+		if (!SetupComm(hCom, 2048, 2048)) {
+			CloseHandle(hCom);
+			return FALSE;
+		}
 		if (!GetCommState(hCom, &dcb)) {
+			CloseHandle(hCom);
 			return FALSE;
 		}
-		dcb.BaudRate = 115200;
-		dcb.ByteSize = 8;
-		dcb.Parity = NOPARITY;
-		dcb.StopBits = ONESTOPBIT;
-		if (!SetCommState(hCom, &dcb)) {
-			return FALSE;
+		else {
+			dcb.DCBlength = sizeof(dcb);
+			if (!BuildCommDCB(L"115200,n,8,1", &dcb)) {
+				CloseHandle(hCom);
+				return FALSE;
+			}
+			if (!SetCommState(hCom, &dcb)) {
+				CloseHandle(hCom);
+				return FALSE;
+			}
 		}
-		if (!setuptimeout(0,0,0,0,0)) {
+
+		if (!setuptimeout(MAXDWORD,0,0,50,2000)) {
 			return FALSE;
 		}
 
@@ -300,123 +310,161 @@ BOOL OpenSerial() {
 
 
 DWORD WINAPI ThreadRead( LPVOID lpParameter) {
-	bool bRead = TRUE;
-	bool bResult = TRUE;
-	DWORD dwError = 0;
-	DWORD BytesRead = 0;
+
+	bool bResult;
+	DWORD dwError;
+	DWORD BytesRead;
 
 	GetClientRect(hwnd,&rect1);
+	hdcglobal = GetWindowDC(hwnd);
 
-
-	char RXBuff[1024];
 	for (;;) {
-		bResult = ClearCommError(hCom,&dwError,&Comstat);
-		if (Comstat.cbInQue == 0)
-			continue;
-		if (bRead) {
-			bResult = ReadFile(hCom,  //通信设备（此处为串口）句柄，由CreateFile()返回值得到  
-				RXBuff,  //指向接收缓冲区
-				1024,  //指明要从串口中读取的字节数  
-				&BytesRead,   //  
-				&OverLapped);  //OVERLAPPED结构  
-			if (!bResult) {
-				switch (dwError == GetLastError())
-				{
-				                 case ERROR_IO_PENDING:
-					                     bRead = FALSE;
-					                     break;
-				                 default:
-					                     break;
-				}
-			}
-			hdcglobal = GetWindowDC(hwnd);
 
-			memset(wszClassName,0,sizeof(wszClassName));
-			MultiByteToWideChar(CP_ACP,0,RXBuff,strlen(RXBuff)+1,wszClassName,
-				sizeof(wszClassName)/sizeof(wszClassName[0]));
-			//DrawText(hdcglobal, wszClassName, -1, &rect1, DT_SINGLELINE | DT_CENTER | DT_VCENTER);
+		DWORD dwWantRead = 100;
+		DWORD dwRealRead;
+		DWORD dwRet;
+		DWORD dwRes;
+		char pReadBuf [100];
+		memset(pReadBuf, 0, sizeof(pReadBuf));
+		WCHAR wszClassName[100];
+
+		Rol.hEvent = CreateEvent(NULL,          //创建Rol的hEvent成员为无信号状态
+			TRUE,
+			FALSE,
+			NULL);
+
+		if (Rol.hEvent == NULL)
+		{
+			return -1;
+		}
+
+		memset(wszClassName, 0, sizeof(wszClassName));
+		if (ClearCommError(hCom, &dwError, NULL)) {
+			PurgeComm(hCom,PURGE_TXABORT|PURGE_TXCLEAR);
+		}
+		if (bResult=ReadFile(hCom, pReadBuf, dwWantRead, &dwRealRead, &Rol)) {
+
+			MultiByteToWideChar(CP_ACP, 0, pReadBuf, strlen(pReadBuf) + 1, wszClassName,
+				sizeof(wszClassName) / sizeof(wszClassName[0]));
 
 			SendMessage(hWinRich, EN_SETFOCUS, -2, -1);
 			SendMessage(hWinRich, EM_REPLACESEL, true, (LPARAM)wszClassName);
-			//SetWindowText(hWinRich,wszClassName);
-			//MessageBox(hwnd,LPCWSTR(RXBuff),TEXT("串口数据"),0);
 		}
 		else {
-			bRead = TRUE;
+			
+			dwRet = GetLastError();
+
+			if (!bResult && (dwRet == ERROR_IO_PENDING)) {
+
+				dwRes = WaitForSingleObject(Rol.hEvent, 5000);   //5秒超时
+
+				switch (dwRes)
+				{
+				case  WAIT_OBJECT_0:
+
+					if (!GetOverlappedResult(hCom,
+						&Rol,
+						&dwRealRead,    //实际读出的字节数
+						TRUE))     //TRUE表示直到操作完成函数才返回
+					{
+						//操作失败,可以使用GetLastError()获取错误信息
+					}
+					else
+					{
+						//操作成功完成,数据读取存入myByte中
+
+						//这里加入处理数据的代码
+
+					}
+					break;
+				case   WAIT_TIMEOUT:
+					//读操作失败,原因是超时
+					break;
+				default:
+					//这里加入默认处理代码
+					break;
+				}
+
+			}
 		}
+		CloseHandle(Rol.hEvent);
 		Sleep(100);
+	
 	}
-
-   if (!bRead)
-   {
-	   MessageBox(hwnd, TEXT("msgrrr"), TEXT("dsafd"), 0);
-       bRead = TRUE;
-      bResult = GetOverlappedResult(hCom,
-          &OverLapped,
-          &BytesRead,
-           TRUE);
-    }
-
-
 
 }
 
 DWORD WINAPI WriteChar(WCHAR* m_szWriteBuffer, DWORD m_nToSend) {
-	OVERLAPPED osWrite = { 0 };
-	DWORD dwWritten;
 	DWORD dwRes;
-	BOOL fRes;
-	
+	DWORD dwWrite;
+	BYTE    myByte[10] = "AT\r\n";
 
-	// Create this write operation's OVERLAPPED structure's hEvent.
-	osWrite.hEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
-	if (osWrite.hEvent == NULL)
-		// error creating overlapped event handle
-		return FALSE;
-	char * buff;
-	buff = (char*)"AB";
-	// Issue write.
-	if (!WriteFile(hCom,buff , 5, &dwWritten, &osWrite)) {
-		if (GetLastError() != ERROR_IO_PENDING) {
-			// WriteFile failed, but isn't delayed. Report error and abort.
-			fRes = FALSE;
-		}
-		else
-			// Write is pending.
-			dwRes = WaitForSingleObject(osWrite.hEvent, INFINITE);
+	BOOL bResult;
+
+	Wol.Internal = 0;        //设置OVERLAPPED结构Wol
+	Wol.InternalHigh = 0;
+	Wol.Offset = 0;
+	Wol.OffsetHigh = 0;
+	Wol.hEvent = CreateEvent(NULL,          //创建Wol的hEvent成员为无信号状态
+		TRUE,
+		FALSE,
+		NULL);
+
+	if (Wol.hEvent == NULL)
+	{
+		return -1;
+	}
+
+
+	bResult = WriteFile(hCom,         //串口句柄
+		&myByte,     //存放待发送数据
+		4,         //欲发送的字节数
+		NULL,
+		&Wol);       //指向创建hCom时的Wol的指针
+
+	if (bResult)
+	{
+		//printf("send success \r\n");
+	}
+
+	if (!bResult) {
+
+		dwRes = WaitForSingleObject(Wol.hEvent, 500);   //5ms超时
 		switch (dwRes)
 		{
-			// OVERLAPPED structure's event has been signaled. 
-		case WAIT_OBJECT_0:
-			if (!GetOverlappedResult(hCom, &osWrite, &dwWritten, FALSE))
-				fRes = FALSE;
+		case   WAIT_OBJECT_0:
+			if (!GetOverlappedResult(hCom,
+				&Wol,
+				&dwWrite,
+				TRUE))     //TRUE表示直到操作完成函数才返回
+			{
+				//操作失败,可以使用GetLastError()获取错误信息
+			}
 			else
-				// Write operation completed successfully.
-				fRes = TRUE;
+			{
+				//MessageBox(hwnd, TEXT("数据发送成功"), TEXT("打开串口"), 0);
+				//发送数据成功
+				//printf("send success dwWrite = %d \r\n", dwWrite);
+				//这里加入发送成功的处理代码
+			}
 			break;
-
+		case   WAIT_TIMEOUT:
+			//读操作失败,原因是超时
+			break;
 		default:
-			// An error has occurred in WaitForSingleObject.
-			// This usually indicates a problem with the
-			// OVERLAPPED structure's event handle.
-			fRes = FALSE;
+			//这里加入默认处理代码
 			break;
 		}
 	}
 
-	else
-		// WriteFile completed immediately.
-		fRes = TRUE;
-
-	//	CloseHandle(osWrite.hEvent);   // close the port 
-	return fRes;
-
+	return 0;
 }
 
 
 bool setuptimeout(DWORD ReadInterval, DWORD ReadTotalMultiplier, DWORD ReadTotalconstant, DWORD WriteTotalMultiplier, DWORD WriteTotalconstant)
 {
 	COMMTIMEOUTS timeouts;
+	memset(&timeouts, 0, sizeof(timeouts));
 	timeouts.ReadIntervalTimeout = ReadInterval;
 	timeouts.ReadTotalTimeoutConstant = ReadTotalconstant;
 	timeouts.ReadTotalTimeoutMultiplier = ReadTotalMultiplier;
@@ -429,5 +477,6 @@ bool setuptimeout(DWORD ReadInterval, DWORD ReadTotalMultiplier, DWORD ReadTotal
 	else
 		return true;
 }
+
 
 
