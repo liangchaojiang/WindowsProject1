@@ -43,7 +43,7 @@ LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 BOOL OpenSerial();
 DWORD WINAPI ThreadRead(LPVOID lpParameter);
-DWORD WINAPI WriteChar(WCHAR* m_szWriteBuffer, DWORD m_nToSend);
+DWORD WINAPI WriteChar(BYTE* m_szWriteBuffer, DWORD m_nToSend);
 bool setuptimeout(DWORD ReadInterval, DWORD ReadTotalMultiplier, DWORD ReadTotalconstant, DWORD WriteTotalMultiplier, DWORD WriteTotalconstant);
 
 
@@ -210,7 +210,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			break;
 		}
 			int wmId = LOWORD(wParam);
-			WCHAR * temp = (WCHAR*)("this is a temp");
+			BYTE * temp = (BYTE*)("this is a temp");
             // 分析菜单选择:
             switch (wmId)
             {
@@ -416,10 +416,16 @@ DWORD WINAPI ThreadRead( LPVOID lpParameter) {
 
 }
 
-DWORD WINAPI WriteChar(WCHAR* m_szWriteBuffer, DWORD m_nToSend) {
+DWORD WINAPI WriteChar(BYTE * m_szWriteBuffer, DWORD m_nToSend) {
 	DWORD dwRes;
 	DWORD dwWrite;
-	BYTE    myByte[10] = "AT\r\n";
+	BYTE    myByte[10];
+	
+	memset(myByte, 0, sizeof(myByte));
+
+	for (int i = 0; i < 10; i++) {
+		myByte[i] = m_szWriteBuffer[i];
+	}
 
 	BOOL bResult;
 
@@ -440,7 +446,7 @@ DWORD WINAPI WriteChar(WCHAR* m_szWriteBuffer, DWORD m_nToSend) {
 
 	bResult = WriteFile(hCom,         //串口句柄
 		&myByte,     //存放待发送数据
-		4,         //欲发送的字节数
+		10,         //欲发送的字节数
 		NULL,
 		&Wol);       //指向创建hCom时的Wol的指针
 
