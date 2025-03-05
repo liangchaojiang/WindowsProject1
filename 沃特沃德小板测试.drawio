@@ -83,7 +83,7 @@
         <mxCell id="iXuzyoS3UVN4r8s5BGeu-21" value="结果反馈" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="590" y="110" width="60" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="iXuzyoS3UVN4r8s5BGeu-22" value="上报SN" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="iXuzyoS3UVN4r8s5BGeu-22" value="扫码SN" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="170" y="720" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="iXuzyoS3UVN4r8s5BGeu-27" value="提示完成进入下一块" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
