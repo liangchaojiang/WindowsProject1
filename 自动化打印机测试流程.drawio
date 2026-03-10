@@ -40,10 +40,13 @@
           <mxGeometry height="60" width="120" x="490" y="480" as="geometry" />
         </mxCell>
         <mxCell id="dFVyMZPEMAnKJpMCLFzW-12" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="缺纸" vertex="1">
-          <mxGeometry height="30" width="60" x="430" y="480" as="geometry" />
+          <mxGeometry height="30" width="60" x="425" y="480" as="geometry" />
         </mxCell>
         <mxCell id="dFVyMZPEMAnKJpMCLFzW-13" parent="1" style="whiteSpace=wrap;html=1;rounded=1;" value="相机检查" vertex="1">
           <mxGeometry height="60" width="120" x="330" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="f1-JYn5OfiIptY0l7ckN-1" parent="1" style="text;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(236, 236, 236); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;异常&lt;/span&gt;" vertex="1">
+          <mxGeometry height="40" width="60" x="440" y="520" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
