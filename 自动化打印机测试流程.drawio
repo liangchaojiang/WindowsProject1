@@ -1,0 +1,51 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" version="29.3.8">
+  <diagram name="第 1 页" id="iSPujg4Nz0TkwOE-j6tV">
+    <mxGraphModel dx="1426" dy="897" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="dFVyMZPEMAnKJpMCLFzW-5" edge="1" parent="1" source="dFVyMZPEMAnKJpMCLFzW-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="dFVyMZPEMAnKJpMCLFzW-4" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dFVyMZPEMAnKJpMCLFzW-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="开始" vertex="1">
+          <mxGeometry height="60" width="120" x="330" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="dFVyMZPEMAnKJpMCLFzW-7" edge="1" parent="1" source="dFVyMZPEMAnKJpMCLFzW-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="dFVyMZPEMAnKJpMCLFzW-6" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dFVyMZPEMAnKJpMCLFzW-4" parent="1" style="whiteSpace=wrap;html=1;rounded=1;" value="打印机测试命令" vertex="1">
+          <mxGeometry height="60" width="120" x="330" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="dFVyMZPEMAnKJpMCLFzW-9" edge="1" parent="1" source="dFVyMZPEMAnKJpMCLFzW-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="dFVyMZPEMAnKJpMCLFzW-8" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dFVyMZPEMAnKJpMCLFzW-6" parent="1" style="whiteSpace=wrap;html=1;rounded=1;" value="MCU开合盖" vertex="1">
+          <mxGeometry height="60" width="120" x="330" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="dFVyMZPEMAnKJpMCLFzW-11" edge="1" parent="1" source="dFVyMZPEMAnKJpMCLFzW-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="dFVyMZPEMAnKJpMCLFzW-10" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dFVyMZPEMAnKJpMCLFzW-14" edge="1" parent="1" source="dFVyMZPEMAnKJpMCLFzW-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="dFVyMZPEMAnKJpMCLFzW-13" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dFVyMZPEMAnKJpMCLFzW-15" connectable="0" parent="dFVyMZPEMAnKJpMCLFzW-14" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="成功" vertex="1">
+          <mxGeometry relative="1" x="-0.0889" y="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dFVyMZPEMAnKJpMCLFzW-8" parent="1" style="rhombus;whiteSpace=wrap;html=1;rounded=1;" value="查询状态" vertex="1">
+          <mxGeometry height="80" width="80" x="350" y="470" as="geometry" />
+        </mxCell>
+        <mxCell id="dFVyMZPEMAnKJpMCLFzW-10" parent="1" style="whiteSpace=wrap;html=1;rounded=1;" value="结束" vertex="1">
+          <mxGeometry height="60" width="120" x="490" y="480" as="geometry" />
+        </mxCell>
+        <mxCell id="dFVyMZPEMAnKJpMCLFzW-12" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="缺纸" vertex="1">
+          <mxGeometry height="30" width="60" x="430" y="480" as="geometry" />
+        </mxCell>
+        <mxCell id="dFVyMZPEMAnKJpMCLFzW-13" parent="1" style="whiteSpace=wrap;html=1;rounded=1;" value="相机检查" vertex="1">
+          <mxGeometry height="60" width="120" x="330" y="640" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
