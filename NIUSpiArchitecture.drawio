@@ -105,7 +105,7 @@
         <mxCell id="iNdNRzKVHsF0guQ_a0kt-52" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;arcSize=50;gradientColor=#7ea6e0;" value="&lt;span style=&quot;font-size: 21px;&quot;&gt;&lt;b&gt;命令下发&lt;/b&gt;&lt;/span&gt;" vertex="1">
           <mxGeometry height="60" width="120" x="-460" y="610" as="geometry" />
         </mxCell>
-        <mxCell id="iNdNRzKVHsF0guQ_a0kt-53" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;arcSize=50;gradientColor=#7ea6e0;glass=0;" value="&lt;span style=&quot;font-size: 21px;&quot;&gt;&lt;b&gt;接收命令&lt;/b&gt;&lt;/span&gt;" vertex="1">
+        <mxCell id="iNdNRzKVHsF0guQ_a0kt-53" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;arcSize=50;gradientColor=#7ea6e0;glass=0;" value="&lt;span style=&quot;font-size: 21px;&quot;&gt;&lt;b&gt;命令接收&amp;nbsp; &amp;nbsp;处理&lt;/b&gt;&lt;/span&gt;" vertex="1">
           <mxGeometry height="60" width="120" x="940" y="620" as="geometry" />
         </mxCell>
         <mxCell id="iNdNRzKVHsF0guQ_a0kt-54" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;span style=&quot;font-size: 54px;&quot;&gt;&lt;b&gt;MCU数据处理链路&lt;/b&gt;&lt;/span&gt;" vertex="1">
