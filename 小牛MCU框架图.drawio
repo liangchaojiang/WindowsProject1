@@ -1,59 +1,70 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" version="29.6.1">
   <diagram name="第 1 页" id="KS4L8K5DVSfsaUN2J7mr">
-    <mxGraphModel dx="1426" dy="897" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1678" dy="1055" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="bexa5nqUtbtK9NZ6XJkC-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;gradientColor=#ffd966;strokeColor=#d6b656;" value="&lt;font style=&quot;font-size: 52px;&quot;&gt;MCU&lt;/font&gt;" vertex="1">
-          <mxGeometry height="630" width="680" x="510" y="200" as="geometry" />
+          <mxGeometry height="630" width="680" x="490" y="200" as="geometry" />
         </mxCell>
         <mxCell id="bexa5nqUtbtK9NZ6XJkC-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;gradientColor=#ea6b66;strokeColor=#b85450;" value="&lt;font style=&quot;font-size: 52px;&quot;&gt;VCU&lt;/font&gt;" vertex="1">
           <mxGeometry height="530" width="160" x="110" y="250" as="geometry" />
         </mxCell>
-        <mxCell id="bexa5nqUtbtK9NZ6XJkC-3" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;strokeWidth=3;" value="">
+        <mxCell id="bexa5nqUtbtK9NZ6XJkC-12" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;gradientColor=#ea6b66;strokeColor=#b85450;" value="&lt;font style=&quot;font-size: 52px;&quot;&gt;SOC&lt;/font&gt;" vertex="1">
+          <mxGeometry height="530" width="160" x="1410" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="bexa5nqUtbtK9NZ6XJkC-15" edge="1" parent="1" source="bexa5nqUtbtK9NZ6XJkC-2" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=1;exitY=0.164;exitDx=0;exitDy=0;exitPerimeter=0;strokeWidth=3;entryX=0.001;entryY=0.217;entryDx=0;entryDy=0;entryPerimeter=0;" target="bexa5nqUtbtK9NZ6XJkC-1" value="">
           <mxGeometry height="50" relative="1" width="50" as="geometry">
-            <Array as="points">
-              <mxPoint x="440" y="590" />
-            </Array>
-            <mxPoint x="270" y="590" as="sourcePoint" />
-            <mxPoint x="510" y="590" as="targetPoint" />
+            <mxPoint x="710" y="530" as="sourcePoint" />
+            <mxPoint x="500" y="337" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="bexa5nqUtbtK9NZ6XJkC-4" connectable="0" parent="bexa5nqUtbtK9NZ6XJkC-3" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontStyle=1;fontSize=15;" value="CAN1中断数据" vertex="1">
-          <mxGeometry relative="1" y="1" as="geometry">
+        <mxCell id="bexa5nqUtbtK9NZ6XJkC-16" connectable="0" parent="bexa5nqUtbtK9NZ6XJkC-15" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=15;fontStyle=1" value="UART1中断数据" vertex="1">
+          <mxGeometry relative="1" x="-0.0826" y="4" as="geometry">
             <mxPoint y="-14" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="bexa5nqUtbtK9NZ6XJkC-5" edge="1" parent="1" source="bexa5nqUtbtK9NZ6XJkC-2" style="endArrow=classic;html=1;rounded=0;exitX=0.988;exitY=0.828;exitDx=0;exitDy=0;exitPerimeter=0;strokeWidth=3;entryX=0;entryY=0.776;entryDx=0;entryDy=0;entryPerimeter=0;" target="bexa5nqUtbtK9NZ6XJkC-1" value="">
+        <mxCell id="bexa5nqUtbtK9NZ6XJkC-17" edge="1" parent="1" source="bexa5nqUtbtK9NZ6XJkC-2" style="endArrow=classic;startArrow=classic;html=1;rounded=0;strokeWidth=3;entryX=0.002;entryY=0.316;entryDx=0;entryDy=0;entryPerimeter=0;exitX=1.002;exitY=0.279;exitDx=0;exitDy=0;exitPerimeter=0;" target="bexa5nqUtbtK9NZ6XJkC-1" value="">
           <mxGeometry height="50" relative="1" width="50" as="geometry">
-            <mxPoint x="500" y="510" as="sourcePoint" />
+            <mxPoint x="271" y="400" as="sourcePoint" />
+            <mxPoint x="470" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bexa5nqUtbtK9NZ6XJkC-18" connectable="0" parent="bexa5nqUtbtK9NZ6XJkC-17" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=15;fontStyle=1" value="UART...中断数据" vertex="1">
+          <mxGeometry relative="1" x="-0.0826" y="4" as="geometry">
+            <mxPoint y="-14" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="bexa5nqUtbtK9NZ6XJkC-19" edge="1" parent="1" source="bexa5nqUtbtK9NZ6XJkC-2" style="endArrow=classic;startArrow=classic;html=1;rounded=0;entryX=0.003;entryY=0.635;entryDx=0;entryDy=0;entryPerimeter=0;strokeWidth=3;exitX=1.002;exitY=0.66;exitDx=0;exitDy=0;exitPerimeter=0;" target="bexa5nqUtbtK9NZ6XJkC-1" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="271" y="600" as="sourcePoint" />
             <mxPoint x="510" y="602" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="bexa5nqUtbtK9NZ6XJkC-6" connectable="0" parent="bexa5nqUtbtK9NZ6XJkC-5" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontStyle=1;fontSize=15;" value="CAN2中断数据" vertex="1">
-          <mxGeometry relative="1" y="1" as="geometry">
+        <mxCell id="bexa5nqUtbtK9NZ6XJkC-20" connectable="0" parent="bexa5nqUtbtK9NZ6XJkC-19" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=15;fontStyle=1" value="CAN1中断数据" vertex="1">
+          <mxGeometry relative="1" x="-0.0826" y="4" as="geometry">
             <mxPoint y="-14" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="bexa5nqUtbtK9NZ6XJkC-7" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;strokeWidth=3;" value="">
+        <mxCell id="bexa5nqUtbtK9NZ6XJkC-21" edge="1" parent="1" source="bexa5nqUtbtK9NZ6XJkC-2" style="endArrow=classic;startArrow=classic;html=1;rounded=0;entryX=0.001;entryY=0.762;entryDx=0;entryDy=0;entryPerimeter=0;strokeWidth=3;exitX=1;exitY=0.811;exitDx=0;exitDy=0;exitPerimeter=0;" target="bexa5nqUtbtK9NZ6XJkC-1" value="">
           <mxGeometry height="50" relative="1" width="50" as="geometry">
-            <mxPoint x="270" y="340" as="sourcePoint" />
-            <mxPoint x="510" y="340" as="targetPoint" />
+            <mxPoint x="270" y="690" as="sourcePoint" />
+            <mxPoint x="509" y="692" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="bexa5nqUtbtK9NZ6XJkC-8" connectable="0" parent="bexa5nqUtbtK9NZ6XJkC-7" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontStyle=1;fontSize=15;" value="UART1中断数据" vertex="1">
-          <mxGeometry relative="1" y="1" as="geometry">
+        <mxCell id="bexa5nqUtbtK9NZ6XJkC-22" connectable="0" parent="bexa5nqUtbtK9NZ6XJkC-21" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=15;fontStyle=1" value="CAN2中断数据" vertex="1">
+          <mxGeometry relative="1" x="-0.0826" y="4" as="geometry">
             <mxPoint y="-14" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="bexa5nqUtbtK9NZ6XJkC-9" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;strokeWidth=3;" value="">
+        <mxCell id="bexa5nqUtbtK9NZ6XJkC-23" edge="1" parent="1" source="bexa5nqUtbtK9NZ6XJkC-1" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=1;exitY=0.508;exitDx=0;exitDy=0;strokeWidth=3;entryX=0.003;entryY=0.511;entryDx=0;entryDy=0;entryPerimeter=0;exitPerimeter=0;" target="bexa5nqUtbtK9NZ6XJkC-12" value="">
           <mxGeometry height="50" relative="1" width="50" as="geometry">
-            <mxPoint x="270" y="430" as="sourcePoint" />
-            <mxPoint x="510" y="430" as="targetPoint" />
+            <mxPoint x="1199" y="520" as="sourcePoint" />
+            <mxPoint x="1420" y="520" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="bexa5nqUtbtK9NZ6XJkC-10" connectable="0" parent="bexa5nqUtbtK9NZ6XJkC-9" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontStyle=1;fontSize=15;" value="UART...中断数据" vertex="1">
-          <mxGeometry relative="1" y="1" as="geometry">
+        <mxCell id="bexa5nqUtbtK9NZ6XJkC-24" connectable="0" parent="bexa5nqUtbtK9NZ6XJkC-23" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=15;fontStyle=1" value="UART数据(阻塞模式)" vertex="1">
+          <mxGeometry relative="1" x="-0.0826" y="4" as="geometry">
             <mxPoint y="-14" as="offset" />
           </mxGeometry>
         </mxCell>
