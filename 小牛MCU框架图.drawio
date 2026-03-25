@@ -75,7 +75,7 @@
           <mxGeometry height="170" width="70" x="530" y="280" as="geometry" />
         </mxCell>
         <mxCell id="bexa5nqUtbtK9NZ6XJkC-27" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1ba1e2;fontColor=#ffffff;strokeColor=#006EAF;" value="&lt;font style=&quot;font-size: 17px;&quot;&gt;UART数据封装&lt;/font&gt;" vertex="1">
-          <mxGeometry height="110" width="70" x="1000" y="460" as="geometry" />
+          <mxGeometry height="110" width="60" x="1010" y="460" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
