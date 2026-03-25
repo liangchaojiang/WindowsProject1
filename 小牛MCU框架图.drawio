@@ -191,8 +191,8 @@
             <mxRectangle height="20" width="55" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="bexa5nqUtbtK9NZ6XJkC-93" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;&lt;b&gt;SOC&lt;/b&gt;&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;font-size: 25px;&quot;&gt;&lt;b&gt;UART&lt;br&gt;&lt;/b&gt;&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;font-size: 25px;&quot;&gt;&lt;b&gt;中断处理&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
-          <mxGeometry height="200" width="180" x="960" y="550" as="geometry" />
+        <mxCell id="bexa5nqUtbtK9NZ6XJkC-93" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" value="&lt;span style=&quot;font-size: 25px;&quot;&gt;&lt;b&gt;SOC&lt;/b&gt;&lt;/span&gt;&lt;div&gt;&lt;div&gt;&lt;span style=&quot;font-size: 25px;&quot;&gt;&lt;b&gt;中断处理&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="220" width="180" x="960" y="550" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
